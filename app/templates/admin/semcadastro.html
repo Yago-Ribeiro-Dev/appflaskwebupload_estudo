@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+    <meta charset=utf-8 />
+    <title>Produtos</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" tyle="background-color: #fff;>
+        <a class="navbar-brand" href="/"><img src="https://www.hausz.com.br/IMG/LogoHausz200.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Dashboard <span class="sr-only"></span></a>
+        </li>
+        
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Upload Files <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="http://172.16.4.72:8080/home?status=active">Workflows <span class="sr-only"></span></a>
+          </li>
+     
+        
+      </ul>
+    </div>
+  </nav>
+  <br>
+ 
+    <table id="example1" class="display nowrap" width="100%">
+        <center><h1>Marcas Atualizadas</h1></center>
+      <thead>
+          <tr>
+            <th>SKU</th>
+            <th>QUANTIDADE</th>
+        
+          </tr>
+        </thead>
+
+         
+                {% for produto in produtos %}
+                <tr>
+               
+                  
+                  <th scope="row"><a href="{{url_for('notify.retorna_diario_marca', marca = produto['MARCA'])}}" aria-pressed="true">{{produto['MARCA']}}</a></th>
+                  <td>{{produto['SKUS']}}</td>
+        
+            
+                </tr>   
+               
+               {%endfor%}
+        
+        
+
+<script>
+
+
+$(document).ready( function () {
+  var table = $('#example').DataTable( {
+    columnDefs: [
+{
+    targets: 0,
+    render: function (data, type, row, meta)
+    {
+        if (type === 'display')
+        {
+            data = '<a href="FormToEdit.php?everything=' + encodeURIComponent(data) + '">Edit</a>';
+        }
+        return data;
+    }
+}],
+  });
+  
+  
+  $('#example1').DataTable();
+} );
+
+</script>
+
+</tbody>
+</table>
+
+</body>
+</html>
